@@ -204,7 +204,7 @@ extension ViewController: ImageCellDelegate {
             imageObjects.remove(at: indexPath.row)
             collectionView.deleteItems(at: [indexPath])
         } catch {
-            print("error deleting item: \(error)")
+            print("error deleting this item: \(error)")
         }
         
     }
