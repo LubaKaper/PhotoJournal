@@ -87,32 +87,40 @@ class ViewController: UIViewController {
     }
     
    
-    @IBAction func addPhotoButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func addNewEntryButtonPressed(_ sender: UIBarButtonItem) {
+        showAddNewEntryVC()
         // present an action sheet to the user
         // actions: camera, photo library, cancel
         // preferredStyle: .alert(will show actions in the middle of the screen)
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) {
-            [weak self] alertAction in self?.showImagesController(isCameraSelected: true)
+//        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        let cameraAction = UIAlertAction(title: "Camera", style: .default) {
+//            [weak self] alertAction in self?.showImagesController(isCameraSelected: true)
+//        }
+//        let photoLibrary = UIAlertAction(title: "Photo Library", style: .default) { [weak self] alertAction in self?.showImagesController(isCameraSelected: false)
+//
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//        if UIImagePickerController.isSourceTypeAvailable(.camera){
+//            alertController.addAction(cameraAction)
+//        }
+//        alertController.addAction(photoLibrary)
+//        alertController.addAction(cancelAction)
+//        present(alertController, animated: true)
         }
-        let photoLibrary = UIAlertAction(title: "Photo Library", style: .default) { [weak self] alertAction in self?.showImagesController(isCameraSelected: false)
-            
+    
+    private func showAddNewEntryVC() {
+        guard let addNewEventController = storyboard?.instantiateViewController(identifier: "AddNewEntryViewController") as? AddNewEntryViewController else {
+            fatalError("could not downcast to AddNewEntryViewController")
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
-            alertController.addAction(cameraAction)
-        }
-        alertController.addAction(photoLibrary)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true)
-        }
+        present(addNewEventController, animated: true)
+    }
     
     private func showImagesController(isCameraSelected: Bool) {
          // source type default will be .photoLibrary
         imagePickerController.sourceType = .photoLibrary
         if isCameraSelected {
-            imagePickerController.sourceType = .photoLibrary
+            imagePickerController.sourceType = .camera
         }
         present(imagePickerController, animated: true)
     }

@@ -42,7 +42,7 @@ class ImageCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = 20.0
+        //layer.cornerRadius = 20.0
         backgroundColor = .black
         addGestureRecognizer(longPressGesture)
     }
@@ -52,6 +52,7 @@ class ImageCell: UICollectionViewCell {
             return
         }
         imageView.image = image
+        imageView.layer.cornerRadius = 80.0
         descriptionLabel.text = imageObject.imageDescription
         
     }
