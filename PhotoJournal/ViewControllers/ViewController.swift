@@ -39,6 +39,8 @@ class ViewController: UIViewController {
     }
     
     private func loadImageObjects() {
+        imageObjects = [ImageObject(imageData: Data(), date: Date(), imageDescription: "Temp")]
+        
         do {
             imageObjects = try dataPersistence.loadItems()
         } catch {
