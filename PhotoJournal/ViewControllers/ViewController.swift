@@ -37,6 +37,10 @@ class ViewController: UIViewController {
         imagePickerController.delegate = self
         loadImageObjects()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        loadImageObjects()
+        collectionView.reloadData()
+    }
     
     private func loadImageObjects() {
 //        imageObjects = [ImageObject(imageData: Data(), date: Date(), imageDescription: "Temp")]

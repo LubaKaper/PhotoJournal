@@ -34,6 +34,8 @@ class AddNewEntryViewController: UIViewController {
     }
     
     
+    
+    
     @IBAction func accessCameraButtonPressed(_ sender: UIBarButtonItem) {
         //imagePickerController.sourceType = .camera
 //        present(imagePickerController, animated: true)
@@ -58,7 +60,10 @@ class AddNewEntryViewController: UIViewController {
     
     
     @IBAction func saveEntryButtonPressed(_ sender: UIButton) {
-       // let description = textEntryView.text
+        guard let description = textEntryView.text else {
+            print("no text entry")
+            return
+        }
         guard let image = imageView.image else {
             //jpegData(compressionQuality: 1.0) converts UIImage to data
             print("image is nil")
@@ -79,13 +84,14 @@ class AddNewEntryViewController: UIViewController {
         }
         
         // create an image object using the image selected
-        let imageObject = ImageObject(imageData: resizedImageData, date: Date(), imageDescription: "...")
+        let imageObject = ImageObject(imageData: resizedImageData, date: Date(), imageDescription: textEntryView.text)
         
         do {
             try dataPersistence.create(imageObject)
         } catch {
             print("saving error: \(error)")
         }
+        dismiss(animated: true, completion: nil)
     }
     
 }
