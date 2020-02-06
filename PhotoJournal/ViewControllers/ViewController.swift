@@ -115,12 +115,15 @@ class ViewController: UIViewController {
 //        present(alertController, animated: true)
         }
     
-    private func showAddNewEntryVC() {
+    private func showAddNewEntryVC(_ image: ImageObject? = nil) {
         guard let addNewEventController = storyboard?.instantiateViewController(identifier: "AddNewEntryViewController") as? AddNewEntryViewController else {
             fatalError("could not downcast to AddNewEntryViewController")
         }
+        addNewEventController.image = image
+
+        
         present(addNewEventController, animated: true)
-    }
+            }
     
     private func showImagesController(isCameraSelected: Bool) {
          // source type default will be .photoLibrary
@@ -204,7 +207,11 @@ extension ViewController: ImageCellDelegate {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         //TODO:- add segue to detailVC
-        let editAction = UIAlertAction(title: "Edit", style: .destructive)
+        let editAction = UIAlertAction(title: "Edit", style: .destructive) {
+            [weak self] alertAction in
+            let object = self!.imageObjects[indexPath.row]
+            self?.showAddNewEntryVC(object)
+        }
         alertController.addAction(editAction)
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)

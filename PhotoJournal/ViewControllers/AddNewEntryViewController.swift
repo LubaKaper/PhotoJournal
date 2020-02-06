@@ -25,15 +25,25 @@ class AddNewEntryViewController: UIViewController {
 //
 //        }
 //    }
+    public var image: ImageObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textEntryView.delegate = self
         imagePickerController.delegate = self
-        
+        updateUI()
     }
     
-    
+    private func updateUI() {
+        if let image = image {
+            
+            textEntryView.text = image.imageDescription
+            imageView.image = UIImage(data: image.imageData)
+        } else {
+            imageView.image = UIImage(systemName: "person")
+           
+        }
+    }
     
     
     @IBAction func accessCameraButtonPressed(_ sender: UIBarButtonItem) {
@@ -60,10 +70,7 @@ class AddNewEntryViewController: UIViewController {
     
     
     @IBAction func saveEntryButtonPressed(_ sender: UIButton) {
-        guard let description = textEntryView.text else {
-            print("no text entry")
-            return
-        }
+        
         guard let image = imageView.image else {
             //jpegData(compressionQuality: 1.0) converts UIImage to data
             print("image is nil")
